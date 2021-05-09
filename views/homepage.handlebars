@@ -2,7 +2,6 @@
         <div class="">
           <h2>Welcome to Pantrimonium!</h2>
           <h4>The site that lets you organize your ingredients.  Whether from your pantry, fridge, or freezer you can see what you have and what you can make.  Create a shopping list and see what you are running out of (or worse, what is about to expire)</h4>
-          <h4>Organize your recipes as well and have it link with your inventory!</h4>
       </div>
     </div>
 
@@ -10,40 +9,37 @@
         <div class="row">
             <div class="col-md-6">
               <h2>Login</h2>
-          
               <form class="form login-form">
+                {{!-- <div class="form-row"></div> --}}
                 <div class="form-group">
-                  <label for="email-login">eMail:</label>
-                  <input class="form-input" type="text" id="email-login" />
+                  <label for="email-login">Email:</label>
+                  <input class="form-control" type="text" id="email-login">
                 </div>
                 <div class="form-group">
                   <label for="password-login">Password:</label>
-                  <input class="form-input" type="password" id="password-login" />
+                  <input class="form-control" type="password" id="password-login">
                 </div>
-                <div class="form-group">
-                  <button class="btn btn-primary" type="submit">Login</button>
-                </div>
+                <button class="btn btn-primary" type="submit">Login</button>
               </form>
             </div>
             <div class="col-md-6">
               <h2>Signup</h2>
-          
               <form class="form signup-form">
                 <div class="form-group">
                   <label for="name-signup">Name:</label>
-                  <input class="form-input" type="text" id="name-signup" />
+                  <input class="form-control" type="text" id="name-signup">
                 </div>
-                <div class="form-group">
-                  <label for="email-signup">eMail:</label>
-                  <input class="form-input" type="text" id="email-signup" />
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="email-signup">Email:</label>
+                    <input class="form-control" type="text" id="email-signup">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="password-signup">Password:</label>
+                    <input class="form-control" type="password" id="password-signup">
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="password-signup">Password:</label>
-                  <input class="form-input" type="password" id="password-signup" />
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-primary" type="submit">Signup</button>
-                </div>
+                <button class="btn btn-primary" type="submit">Signup</button>
               </form>
             </div>
           </div>

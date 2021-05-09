@@ -10,11 +10,11 @@
       </div>
       <div class="row col-12">
         <div class="rounded mx-3 p-2 mb-3 col-12 item-list"  style="background-color: #ffb202;">
-          <div class="w-100 mx-auto p-1 flex-wrap">
-            <h2>Shopping List</h2>
+          <div class="mx-auto p-1 flex-wrap">
+            <h2 class="col">Shopping List</h2>
             <span class="float-right"><button type="button" class="btn btn-primary btn-sm noPrint" id="add" data-toggle="modal" data-target="#addModal">+Add to List</button></span>
           </div>
-          {{#each items }}
+          {{#each items}}
             {{#each items}}
               {{#if (ifCond quantity '<=' par_level true)}}
           <div style="background-color: #ff9a4a;" class="row rounded my-2 w-100 mx-auto p-1 col-12" id="{{id}}">
@@ -42,26 +42,24 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="ModalLabel">update inventory</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h5 class="modal-title" id="ModalLabel">Buy item and add to inventory</h5>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
   
         <form id="updateShoppingItemForm" class="modal-body">
           <div class="form-group">
-            <label for="updateModalQty" class="col-form-label">how many did you buy?:</label>
-            <input type="number" placeholder="0" min="0" class="form-control" id="updateModalQty">
+            <label for="updateModalQty" class="col-form-label">How many did you buy?</label>
+            <input type="number" placeholder="Enter purchase quantity" min="0" class="form-control" id="updateModalQty">
             <input type="hidden" id="updateID">
           </div>
 
           <div class="form-group">
-            <label for="addModalExp" class="col-form-label">add an expiration date?</label>
+            <label for="addModalExp" class="col-form-label">Add an expiration date (optional)?</label>
             <input type="date" class="form-control" id="updateModalExp">
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
             <button id="updatebtn" type="button" class="btn btn-success" data-dismiss="modal">Update</button>
           </div>
 
@@ -75,36 +73,29 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addModalLabel">create new item and add to shopping list</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h5 class="modal-title" id="addModalLabel">Create new item and add to shopping list</h5>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
   
         <form id="newShoppingItemForm" class="modal-body">
           <div class="form-group">
-            <label for="addModalName" class="col-form-label">description:</label>
-            <input type="text" placeholder="enter item description" class="form-control" id="addModalName">
+            <label for="addModalName" class="col-form-label">Enter a description:</label>
+            <input type="text" placeholder="(required)" class="form-control" id="addModalName">
             <input type="hidden" id="addID">
           </div>
 
-          {{!-- <div class="form-group">
-            <label for="addModalQty" class="col-form-label">Quantity:</label>
-            <input type="number" min="0"class="form-control" id="addModalQty">
-          </div> --}}
-
           <div class="form-group">
-            <label for="addModalCat" class="col-form-label">category:</label>
-            <input type="text" placeholder="(optional) define a category for this item" class="form-control" id="addModalCat">
+            <label for="addModalCat" class="col-form-label">Enter a category:</label>
+            <input type="text" placeholder="(optional)" class="form-control" id="addModalCat">
           </div>
 
           <div class="form-group">
-            <label for="addModalUOM" class="col-form-label">units:</label>
-            <input type="text" placeholder="(optional) define a unit of measurement (gal/lbs/oz)" class="form-control" id="addModalUOM">
+            <label for="addModalUOM" class="col-form-label">Enter a unit of measure:</label>
+            <input type="text" placeholder="(optional) (gal/lbs/oz/total)" class="form-control" id="addModalUOM">
           </div>
   
           <div class="form-group">
-            <label for="addModalSec" class="col-form-label">where will you store this later?</label>
+            <label for="addModalSec" class="col-form-label">Where will you store this item?</label>
             <select id="addModalSec" name="addModalSec">
               {{#each items}}
               <option value={{id}}>{{name}}</option>
@@ -112,12 +103,10 @@
             </select>
           </div>
 
-          {{!-- <div class="add-form"> --}}
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button id="addbtn" type="button" class="btn btn-primary">Add</button>
-            </div>
-          {{!-- </div> --}}
+          <div class="modal-footer">
+
+            <button id="addbtn" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+          </div>
         </form>
       </div>
     </div>

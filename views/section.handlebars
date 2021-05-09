@@ -1,31 +1,43 @@
-<div class="rounded container col-10 p-2 w-100 m-3 mx-auto">
+<div class="container col-10 p-2 w-100 m-3 mx-auto">
   <div class="row">
     <div class="rounded mx-3 p-2 mb-3 btn-block"  style="background-color: #ffb202;">
-      <div class="runningLow w-100 mx-auto p-1">
+      <div class="w-100 mx-auto p-1 flex-wrap">
 
-        <span><h2 id="section-head" data-id="{{id}}">{{name}}</h2></span>
+        <span><h2 id="section-head" data-id={{requestedSection.id}}>{{requestedSection.name}}</h2></span>
 
-        <div class="row">
-          <span class="rounded col-md-5 mx-3">
-            <button type="button" class="btn btn-success btn-sm" id="add" data-toggle="modal" data-target="#add-item-modal">+Add New Item</button>
+          <span class="float-right">
+            <button type="button" class="btn btn-primary btn-sm" id="add" data-toggle="modal" data-target="#add-item-modal">+Add New Item</button>
           </span> 
         </div>
-      </div>
 
       <!-- populate section items here --> 
       <h6>          
-        {{#each items as |item|}}
+        {{#each requestedSection.items as |item|}}
           <div style="background-color: #ff9a4a;" class="row rounded my-2 runningLow w-100 mx-auto p-1">
 
-            <span class = "col-2">{{item.name}}</span>
-            <span class = "col-2">{{item.quantity}} {{unit_of_measurement}}</span>
-            <span class = "col-2">{{item.type}}</span>
-            <span class = "col-2">{{exp_date}}</span>  
+            <span class = "col-2">{{name}}</span>
+            <span class = "col mobNoShow">{{quantity}} {{unit_of_measurement}}</span>
+            <span class = "col mobNoShow">{{par_level}}</span>
+            <span class = "col mobNoShow">{{type}}</span>
+            <span class = "col mobNoShow">{{exp_date}}</span>  
 
-            <span class = "col-3 text-right">
+            <span class = "col text-right px-0 text-nowrap">
 
               {{!-- row update button --}}
-              <button type="button" class="btn btn-primary btn-sm update-btn" data-id={{id}} data-toggle="modal" data-target="#update-item-modal">Update Item</button>
+              <button type="button" 
+              class="btn btn-success btn-sm update-btn" 
+              data-toggle="modal" 
+              data-target="#update-item-modal" 
+              data-id={{id}} 
+              data-name='{{name}}' 
+              data-qty={{quantity}}
+              data-uom={{unit_of_measurement}}
+              data-parlvl={{par_level}} 
+              data-exp={{exp_date}} 
+              data-cat={{type}}> 
+              Update
+              </button>
+
               {{!-- row delete button --}}
               <button type="button" class="btn btn-danger btn-sm delete-btn" data-id={{id}}><i class="far fa-trash-alt" data-id={{id}}></i></button>
             
@@ -42,47 +54,55 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="ModalLabel">update inventory</h5>
+
+          {{!-- inject name here when update is clicked --}}
+          <h5 class="modal-title" id="update-modal-label">update item</h5>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
   
         <form id="update-item-form" class="modal-body">
-          <div class="form-group">
+          {{!-- <div class="form-group">
             <label for="update-modal-name" class="col-form-label">description:</label>
             <input type="text" class="form-control" id="update-modal-name">
-          </div>
+          </div> --}}
 
           <div class="form-group">
-            <label for="update-modal-cat" class="col-form-label">category:</label>
+            <label for="update-modal-cat" class="col-form-label">Update category description:</label>
             <input type="text" class="form-control" id="update-modal-cat">
           </div>
 
           <div class="form-group">
-            <label for="update-modal-qty" class="col-form-label">quantity:</label>
+            <label for="update-modal-qty" class="col-form-label">Update quantity:</label>
             <input type="number" min="0" class="form-control" id="update-modal-qty">
           </div>
 
           <div class="form-group">
-            <label for="update-modal-section" class="col-form-label">section:</label>
+            <label for="update-modal-section" class="col-form-label">Update section:</label>
             <select id="update-modal-section" name="update-modal-section">
-              {{#each sectionInfo as |sectionInfo|}}
-              <option value="{{sectionInfo.id}}">{{sectionInfo.name}}</option>
+              {{#each sectionInfo as |section|}}
+              {{!-- use ../ to access the other object's properties in order to compare --}}
+              {{!-- if current section matches array section, add default select--}}
+                {{#if (ifCond ../requestedSection.name '===' section.name true)}}
+                  <option value="{{section.id}}" selected>{{section.name}}</option>
+                {{else}}
+                  <option value="{{section.id}}">{{section.name}}</option>
+                {{/if}}
               {{/each}}
             </select>
           </div>
 
           <div class="form-group">
-            <label for="update-modal-par" class="col-form-label">par level:</label>
-            <input type="number" min="0"class="form-control" id="update-modal-par">
+            <label for="update-modal-par" class="col-form-label">Update par level:</label>
+            <input type="number" min="0" placeholder="(Default: zero)" class="form-control" id="update-modal-par">
           </div>
 
           <div class="form-group">
-            <label for="update-modal-uom" class="col-form-label">uom:</label>
-            <input type="text" placeholder="enter uom" min="0" class="form-control" id="update-modal-uom">
+            <label for="update-modal-uom" class="col-form-label">Update unit of measure:</label>
+            <input type="text" placeholder="(Default: total)" min="0" class="form-control" id="update-modal-uom">
           </div>
 
           <div class="form-group">
-            <label for="update-modal-exp" class="col-form-label">expiration date:</label>
+            <label for="update-modal-exp" class="col-form-label">Update expiration date:</label>
             <input type="date" class="form-control" id="update-modal-exp">
           </div>
 
@@ -100,38 +120,38 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addModalLabel">add new item to {{name}}</h5>
+        <h5 class="modal-title" id="addModalLabel">Add new item to {{requestedSection.name}}</h5>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
 
       <form id="add-item-form" class="modal-body">
           <div class="form-group">
-            <label for="add-modal-name" class="col-form-label">description:</label>
+            <label for="add-modal-name" class="col-form-label">Enter a description:</label>
             <input type="text" class="form-control" id="add-modal-name">
           </div>
 
           <div class="form-group">
-            <label for="add-modal-cat" class="col-form-label">category:</label>
-            <input type="text" class="form-control" id="add-modal-cat">
+            <label for="add-modal-cat" class="col-form-label">Enter a category (optional):</label>
+            <input type="text" class="form-control" placeholder="Enter a category" id="add-modal-cat">
           </div>
 
           <div class="form-group">
-            <label for="add-modal-qty" class="col-form-label">quantity:</label>
-            <input type="number" min="0" class="form-control" id="add-modal-qty">
+            <label for="add-modal-qty" class="col-form-label">Enter a quantity:</label>
+            <input type="number" min="0" placeholder="(Default: zero)" class="form-control" id="add-modal-qty">
           </div>
 
           <div class="form-group">
-            <label for="add-modal-par" class="col-form-label">par level:</label>
-            <input type="number" min="0"class="form-control" id="add-modal-par">
+            <label for="add-modal-par" class="col-form-label">When would you like this item to appear on the shopping list?</label>
+            <input type="number" min="0" placeholder="(Default: when quantity is zero)" class="form-control" id="add-modal-par">
           </div>
 
           <div class="form-group">
-            <label for="add-modal-uom" class="col-form-label">uom:</label>
-            <input type="text" placeholder="enter uom" min="0" class="form-control" id="add-modal-uom">
+            <label for="add-modal-uom" class="col-form-label">Enter a unit of measure (optional):</label>
+            <input type="text" placeholder="(Default: total)" min="0" class="form-control" id="add-modal-uom">
           </div>
 
           <div class="form-group">
-            <label for="add-modal-exp" class="col-form-label">expiration date:</label>
+            <label for="add-modal-exp" class="col-form-label">Enter an expiration date (optional)</label>
             <input type="date" class="form-control" id="add-modal-exp">
           </div>
 

@@ -17,36 +17,12 @@ router.get('/', function (req, res) {
     res.render('homepage', {logged_in: req.session.user});
 });
 
-// Renders all user's sections to page
-router.get('/kitchen', async (req,res) => {
-
-    // redirect to homepage if user not logged in
-    if(!req.session.user) {
-        res.render("homepage");
-    } else {
-
-        // select all sections associated with this user id
-        const dbSections = await Section.findAll({
-            where: {
-                user_id: req.session.user.id
-            }
-        });
-
-        // map to new array to parse out required info from metadata
-        const sections = dbSections.map(section => section.get({plain:true}));
-
-        // put array into object so Handlebars can loop
-        // if req.session.user does not exist, logged_in is falsy
-        res.render('kitchen', {sections, logged_in:true});
-    };   
-});
-
 // Renders all items of the user's selected section
 router.get('/section/:id', async (req,res) => {
 
     // redirect to homepage if user not logged in
     if(!req.session.user) {
-        res.render('homepage');
+        res.redirect("/");
     } else {
 
         // get all sections associated with user
@@ -70,13 +46,13 @@ router.get('/section/:id', async (req,res) => {
                       id: section.id
                     }
         });
-        res.render("section", {...requestedSection, sectionInfo, logged_in: req.session.user.id});
+        res.render("section", {requestedSection, sectionInfo, logged_in: req.session.user.id});
     };   
 });
 
 router.get('/kitchen2', async (req,res) => {
     if(!req.session.user) {
-        res.render('homepage');
+        res.redirect("/");
     } else {
         const sectionData = await Section.findAll({
             where: {
@@ -94,7 +70,7 @@ router.get('/shopping', async (req,res) => {
 
     // redirect to homepage if user not logged in
     if(!req.session.user) {
-        res.render('homepage');
+        res.redirect("/");
     } else {
 
         // select all sections associated with this user id
@@ -118,7 +94,7 @@ router.get('/summary', async (req,res) => {
 
     // redirect to homepage if user not logged in
     if(!req.session.user) {
-        res.render('homepage');
+        res.redirect("/");
     } else {
 
         // select all sections associated with this user id

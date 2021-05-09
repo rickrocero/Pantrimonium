@@ -25,8 +25,8 @@ addBtn.addEventListener('click',  e=> {
   
   // collect input data from modal form
   const inputName = shoppingAddModal.querySelector('#addModalName').value.trim();
-  const inputType = shoppingAddModal.querySelector('#addModalCat').value.trim();
-  const inputUOM = shoppingAddModal.querySelector('#addModalUOM').value.trim();
+  const inputType = shoppingAddModal.querySelector('#addModalCat').value.trim() || "-";
+  const inputUOM = shoppingAddModal.querySelector('#addModalUOM').value.trim() || "-";
   const inputSection = shoppingAddModal.querySelector('#addModalSec').value;
 
   // save input data into object

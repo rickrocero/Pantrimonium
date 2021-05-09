@@ -17,7 +17,7 @@ const loginFormHandler = async (event) => {
 
     if (response.ok) {
       // If successful, redirect the browser to the profile page
-      document.location.replace('/kitchen2');
+      document.location.assign('/kitchen2');
     } else {
       alert(response.statusText);
     }
@@ -25,6 +25,7 @@ const loginFormHandler = async (event) => {
 };
 
 // creates a new user and posts to server
+// user is logged in after profile creation
 const signupFormHandler = async (event) => {
   event.preventDefault();
 
@@ -47,7 +48,7 @@ const signupFormHandler = async (event) => {
       });
 
       if (login.ok) {
-        document.location.replace('/kitchen2'); // If successful, redirect the browser to the profile page
+        document.location.assign('/kitchen2'); // If successful, redirect the browser to the profile page
       } else {
         alert(response.statusText); // failed login
       }
