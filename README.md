@@ -44,6 +44,9 @@
 
 - There will be a log out button located on the top-right hand side for the client to be able to logout at any point
 
+- Deployed Site
+    -https://pantrimonium.herokuapp.com/
+
 ## Team
 
  - Robert Adams: [comatosino](https://github.com/comatosino)
